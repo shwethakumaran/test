@@ -5,7 +5,7 @@ const QuaggaBarcodeScanner = () => {
   const [info, setInfo] = useState([]);
   useEffect(() => {
     const unsubscribe = db
-      .collection("yourCollection")
+      .collection("details")
       .onSnapshot((snapshot) => {
         const newData = snapshot.docs.map((doc) => ({
           id: doc.id,
