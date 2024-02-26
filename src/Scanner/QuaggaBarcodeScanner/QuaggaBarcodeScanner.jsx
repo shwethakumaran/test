@@ -4,22 +4,19 @@ import db from "./firebase";
 const QuaggaBarcodeScanner = () => {
   const [info, setInfo] = useState([]);
   useEffect(() => {
-    const unsubscribe = db
-      .collection("details")
-      .onSnapshot((snapshot) => {
-        const newData = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        setInfo(newData);
+    const unsubscribe = db.collection("devices").onSnapshot((snapshot) => {
+      snapshot.forEach((element) => {
+        var data = element.data();
+        setInfo((arr) => [...arr, data]);
       });
+    });
     return unsubscribe;
   }, []);
-  const Frame = ({ id }) => {
+  const Frame = ({ deviceName }) => {
     return (
       <center>
         <div className="div">
-          <p>Device id : {id}</p>
+          <p>Device Name : {deviceName}</p>
         </div>
       </center>
     );
@@ -35,8 +32,8 @@ const QuaggaBarcodeScanner = () => {
           <h2>Device Details</h2>
         </center>
 
-        {info.map((data) => (
-          <Frame course={data.CourseEnrolled} id={data.id} />
+        {info.map((data,i) => (
+          <Frame deviceName={data[i]} />
         ))}
       </div>
     </div>
