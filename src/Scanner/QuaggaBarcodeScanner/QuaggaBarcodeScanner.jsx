@@ -7,7 +7,7 @@ const QuaggaBarcodeScanner = () => {
     const unsubscribe = db.collection("devices").onSnapshot((snapshot) => {
       snapshot.forEach((element) => {
         var data = element.data();
-        setInfo((arr) => [...arr, data]);
+        setInfo(data.devices);
       });
     });
     return unsubscribe;
@@ -33,7 +33,7 @@ const QuaggaBarcodeScanner = () => {
         </center>
 
         {info.map((data,i) => (
-          <Frame deviceName={data[i]} />
+          <Frame deviceName={data} />
         ))}
       </div>
     </div>
