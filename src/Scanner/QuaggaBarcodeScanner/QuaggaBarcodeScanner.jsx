@@ -25,7 +25,7 @@ const QuaggaBarcodeScanner = () => {
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
       <a href="bledevices://bleconnect?userId=23423&shareId=234sdf">
-        <button>URL Scheme</button>
+        <button>Go to Mobile App</button>
       </a>
       <div>
         <center>
