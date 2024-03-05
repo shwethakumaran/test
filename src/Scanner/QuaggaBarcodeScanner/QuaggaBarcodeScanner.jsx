@@ -26,7 +26,7 @@ const QuaggaBarcodeScanner = () => {
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
       <a href="bledevices://bleconnect?userId=23423&shareId=234sdf">
-        <button onClick={()=>setButtonClicked(true)} style={{marginTop:'30px'}}>Go to Mobile App</button>
+        <button onClick={()=>{setTimeout(()=>{setButtonClicked(true)},[5000])}} style={{marginTop:'30px'}}>Go to Mobile App</button>
       </a>
       {/* <center><button onClick={()=>setButtonClicked(true)} style={{marginTop:'30px'}}>Get Device details</button></center> */}
       {buttonClicked && <div>
