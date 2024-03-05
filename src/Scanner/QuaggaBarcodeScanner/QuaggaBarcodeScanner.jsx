@@ -3,6 +3,7 @@ import db from "./firebase";
 
 const QuaggaBarcodeScanner = () => {
   const [info, setInfo] = useState([]);
+  const [buttonClicked, setButtonClicked] = useState(false);
   useEffect(() => {
     const unsubscribe = db.collection("devices").onSnapshot((snapshot) => {
       snapshot.forEach((element) => {
@@ -25,9 +26,10 @@ const QuaggaBarcodeScanner = () => {
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
       <a href="bledevices://bleconnect?userId=23423&shareId=234sdf">
-        <button>Go to Mobile App</button>
+        <button style={{marginTop:'30px'}}>Go to Mobile App</button>
       </a>
-      <div>
+      <center><button onClick={()=>setButtonClicked(true)} style={{marginTop:'30px'}}>Get Device details</button></center>
+      {buttonClicked && <div>
         <center>
           <h2>Device Details</h2>
         </center>
@@ -35,7 +37,7 @@ const QuaggaBarcodeScanner = () => {
         {info.map((data,i) => (
           <Frame deviceName={data} />
         ))}
-      </div>
+      </div>}
     </div>
   );
 };
