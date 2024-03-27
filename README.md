@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Quagga from "quagga";
 import "./QuaggaBarcodeScannerStyle.css";
 
+
 const QuaggaBarcodeScanner = () => {
   const firstUpdate = useRef(true);
   const [isStart, setIsStart] = useState(false);
@@ -140,6 +141,7 @@ const QuaggaBarcodeScanner = () => {
 
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
+    {/* <center><button onClick={()=>setButtonClicked(true)} style={{marginTop:'30px'}}>Get Device details</button></center> */}
       {/* <h3>Barcode scanner in React</h3>
             <button
                 onClick={() => setIsStart((prevStart) => !prevStart)}
