@@ -85,14 +85,12 @@
 
 // export default QuaggaBarcodeScanner;
 import React, { useEffect, useState } from "react";
-import db from "./firebase";
 import io from "socket.io-client";
 
 const socket = io("https://socket-io-server-weub.onrender.com");
 socket.emit("username", "23423");
 
 const QuaggaBarcodeScanner = () => {
-  const [info, setInfo] = useState([]);
   const [deviceNames, setDeviceNames] = useState([]);
   const [isSocketConnected, setIsSocketConnected] = useState(false);
   const localStorageData = localStorage.getItem("deviceNames");
@@ -101,12 +99,12 @@ const QuaggaBarcodeScanner = () => {
   // const [buttonClicked, setButtonClicked] = useState(false);
 
   useEffect(() => {
-    const unsubscribeDb = db.collection("devices").onSnapshot((snapshot) => {
-      snapshot.forEach((element) => {
-        var data = element.data();
-        setInfo(data.devices);
-      });
-    });
+    // const unsubscribeDb = db.collection("devices").onSnapshot((snapshot) => {
+    //   snapshot.forEach((element) => {
+    //     var data = element.data();
+    //     setInfo(data.devices);
+    //   });
+    // });
 
     // Listen for socket connection and update state
     socket.on("connect", () => {
@@ -122,7 +120,6 @@ const QuaggaBarcodeScanner = () => {
 
     // Cleanup function to unsubscribe from DB and disconnect socket
     return () => {
-      unsubscribeDb();
       socket.disconnect();
     };
   }, []);
@@ -139,31 +136,22 @@ const QuaggaBarcodeScanner = () => {
 
   const Frame = ({ deviceName }) => {
     return (
-      <center>
-        <div className="div">
+        <div className="div" style={{marginLeft:'3.9rem'}}>
           <p>Device Name : {deviceName}</p>
         </div>
-      </center>
     );
   };
 
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
-      <a href="bledevices://bleconnect?userId=23423&shareId=234sdf">
+    <div style={{ display: "flex", flexDirection: "column", lineHeight:"2.5" }}>
+      <center><a href="bledevices://bleconnect?userId=23423&shareId=234sdf">
         <button style={{ marginTop: "30px" }}>Go to Mobile App</button>
-      </a>
+      </a></center>
       {isSocketConnected && (
-        <div>
-          <center>
-            <h2>Device Details</h2>
-          </center>
-          {info.map((data, i) => (
-            <Frame deviceName={data} />
-          ))}
-          {console.log("device list", dataArray)}
+        <center>
           {(deviceNames.length > 0 || dataArray.length > 0) && (
-            <div>
-              <h2>Socket.IO Devices</h2>
+            <div style={{display:"flex",flexDirection:"column",lineHeight:"0.4",width:"fit-content", textAlign:"left"}}> 
+              <h2 style={{textAlign:"center"}}>Device Details</h2>
               {deviceNames.length>0
                 ? deviceNames.map((data, i) => (
                     <Frame deviceName={data} key={i} />
@@ -173,7 +161,7 @@ const QuaggaBarcodeScanner = () => {
                   ))}
             </div>
           )}
-        </div>
+        </center>
       )}
     </div>
   );
