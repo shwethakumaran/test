@@ -136,7 +136,7 @@ const QuaggaBarcodeScanner = () => {
 
   const Frame = ({ deviceName }) => {
     return (
-        <div className="div" style={{marginLeft:'3.9rem'}}>
+        <div className="div">
           <p>Device Name : {deviceName}</p>
         </div>
     );
